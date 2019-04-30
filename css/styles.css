@@ -39,6 +39,9 @@ article, aside, canvas, details, figcaption, figure, footer, header, hgroup, men
   background-color: #f3f3f3;
   min-height: 100%;
 }
+.inside #maincontent { 
+  width: 100%;
+}
 #footer {
   background-color: #444;
   color: #aaa;
@@ -53,7 +56,7 @@ nav {
   width: 100%;
   height: 100%;
   background-color: #252831;
-  text-align:center;
+  text-align: center;
 }
 nav h1 {
   margin: auto;
@@ -69,9 +72,9 @@ nav h1 a {
     padding: 10px 40px 16px;
     list-style: none;
     background-color: #eee;
-    font-size: 17px;
+    font-size: 2em;
     margin: 0;
-    width: calc(50% - 80px);
+    width: 100%;
 }
 
 /* Display list items side by side */
@@ -190,29 +193,13 @@ nav h1 a {
 }
 
 /* ====================== Restaurant Details ====================== */
-.inside header {
-  position: fixed;
-  top: 0;
-  width: 100%;
-  z-index: 1000;
-}
-.inside #map-container {
-  background: blue none repeat scroll 0 0;
-  height: 87%;
-  position: fixed;
-  right: 0;
-  top: 80px;
-  width: 50%;
-}
 .inside #map {
-  background-color: #ccc;
-  height: 100%;
-  width: 100%;
+  height: 400px;
 }
 .inside #footer {
   bottom: 0;
   position: absolute;
-  width: 50%;
+  width: 100%;
 }
 #restaurant-name {
   color: #f18200;
@@ -223,13 +210,11 @@ nav h1 a {
   margin: 15px 0 30px;
   text-transform: uppercase;
   line-height: 1.1;
+  text-align: center;
+  margin-top: -20%;
 }
 #restaurant-img {
-	width: 90%;
-}
-#restaurant-address {
-  font-size: 12pt;
-  margin: 10px 0px;
+	max-width: 100%;
 }
 #restaurant-cuisine {
   background-color: #333;
@@ -241,20 +226,22 @@ nav h1 a {
   padding: 2px 0;
   text-align: center;
   text-transform: uppercase;
-	width: 90%;
+	width: 100%;
 }
 #restaurant-container, #reviews-container {
   border-bottom: 1px solid #d9d9d9;
   border-top: 1px solid #fff;
   padding: 140px 40px 30px;
-  width: 50%;
+  width: 100%;
 }
 #reviews-container {
   padding: 30px 40px 80px;
+  width: 100%;
 }
 #reviews-container h2 {
   color: #f58500;
-  font-size: 24pt;
+  font-size: 1.5em;
+  text-align: center;
   font-weight: 300;
   letter-spacing: -1px;
   padding-bottom: 1pt;
@@ -265,32 +252,29 @@ nav h1 a {
 }
 #reviews-list li {
   background-color: #fff;
-    border: 2px solid #f3f3f3;
+  border: 2px solid #f3f3f3;
   display: block;
   list-style-type: none;
   margin: 0 0 30px;
   overflow: hidden;
   padding: 0 20px 20px;
   position: relative;
-  width: 85%;
+  width: 100%;
 }
 #reviews-list li p {
   margin: 0 0 10px;
 }
 #restaurant-hours td {
   color: #666;
+  font-size: 0.8em;
+}
+#restaurant-hours,  #restaurant-address {
+  margin-left: auto;
+  margin-right: auto;
+  text-align: center;
 }
 
 /* ============ Media Queries ============= */
-/* Desktop */
-@media screen and (min-width: 1056px) {
-  #restaurants-list {
-    grid-template-columns: auto auto auto;
-  }
-  nav h1 a {
-    font-size: 2.5em;
-  }
-}
 /* Tablets */
 @media screen and (min-width: 732px) and (max-width: 1055px) {
   #restaurants-list {
@@ -299,4 +283,87 @@ nav h1 a {
   nav h1 a {
     font-size: 1.5em;
   }
+  #restaurant-name {
+    margin-top: -120px;
+  }
+  .inside #map {
+    height: 600px;
+  }
+  img#restaurant-img.restaurant-img{
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    padding-bottom: 10px;
+  }
+  .inside #footer {
+    font-size: 1em;
+  }
+  #restaurant-cuisine {
+    font-size: 2em;
+  }
+  .even-sized {
+    margin-left: auto;
+    margin-right: auto;
+    width: 50%;
+  }
+}
+
+/* Desktop */
+@media screen and (min-width: 1056px) {
+  #restaurants-list {
+    grid-template-columns: auto auto auto;
+  }
+  nav h1 a {
+    font-size: 2.5em;
+  }
+  #restaurant-name {
+    margin-top: -120px;
+    font-size: 4em;
+  }
+  .inside #map {
+    height: 600px;
+  }
+  .even-sized {
+    margin-left: auto;
+    margin-right: auto;
+    width: 50%;
+  }
+  img#restaurant-img.restaurant-img{
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    padding-bottom: 10px;
+    width: 100%;
+  }
+  #restaurant-container {
+    text-align: center;
+  }
+  #restaurant-hours{
+    margin-left: auto;
+    margin-right: auto;
+  }
+  .inside #footer {
+    font-size: 2em;
+  }
+  #reviews-container h2 {
+    font-size: 2.5em;
+  }
+  #reviews-list li p {
+    font-size: 1.5em;
+  }
+  #restaurant-cuisine {
+    font-size: 2em;
+    max-width: 100%;
+  }
+  #restaurant-hours,  #restaurant-address {
+    font-size: 2em;
+  }
+}
+
+/* ============ Overflow fix ============= */
+*, *:before, *:after {
+  box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  
 }
