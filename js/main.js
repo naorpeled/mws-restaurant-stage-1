@@ -4,6 +4,8 @@ let restaurants,
 var newMap
 var markers = []
 
+this._registerServiceWorker();
+
 /**
  * Fetch neighborhoods and cuisines as soon as the page is loaded.
  */
@@ -13,6 +15,18 @@ document.addEventListener('DOMContentLoaded', (event) => {
   fetchCuisines();
 });
 
+function _registerServiceWorker(){
+  if(!navigator.serviceWorker) return;
+  navigator.serviceWorker.register('sw.js').then(function(reg){
+    console.log('Successfully registered the service worker!');
+    if(reg.waiting){
+      reg.skipWaiting();
+      clients.claim;
+    }
+  }).catch(function(){
+    console.log('Something went wrong while registering the service worker');
+  });
+}
 /**
  * Fetch all neighborhoods and set their HTML.
  */
