@@ -1,4 +1,4 @@
-let cacheVersion = 'nrestaurants-static-v3';
+let cacheVersion = 'nrestaurants-static-v2';
 
 // Save all the files into the cache on every Service Worker install
 self.addEventListener('install', function(event){
@@ -22,28 +22,25 @@ const urlsToCache = [
   'data/restaurants.json',
   'css/styles.css'
 ];
-event.waitUntil(
-    caches.open(cacheVersion).then(function(cache) {
-    return cache.addAll(urlsToCache);
-    }).catch(function(){
-      console.log('Something went wrong');
-    }));
-});
 
-// Remove unused caches
-self.addEventListener('activate', function(event) {
-  event.waitUntil(
-    caches.keys().then(function(cacheNames) {
-      return Promise.all(
-        cacheNames.filter(function(cacheName) {
-          return cacheName.startsWith('nrestaurants-') &&
-                 cacheName != staticCacheName;
-        }).map(function(cacheName) {
-          return caches.delete(cacheName);
-        })
-      );
+event.waitUntil(
+// Remove unused caches and replace with a new one
+caches.keys().then(function(cacheNames) {
+  return Promise.all(
+    cacheNames.filter(function(cacheName) {
+      return cacheName.startsWith('nrestaurants-') &&
+             cacheName != cacheVersion;
+    }).map(function(cacheName) {
+      return caches.delete(cacheName);
     })
-  );
+  ).then(function(){
+    caches.open(cacheVersion).then(function(cache) {
+          return cache.addAll(urlsToCache);
+       }).catch(function(){
+         console.log('Something went wrong');
+      });
+    });
+  }));
 });
 
 // On every fetch respond with the cached information
