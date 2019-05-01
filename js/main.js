@@ -14,7 +14,7 @@ document.addEventListener('DOMContentLoaded', (event) => {
   fetchNeighborhoods();
   fetchCuisines();
   document.getElementById('neighborhoods-select').focus();
-  console.log( document.getElementById('neighborhoods-select'));
+  document.getElementById('map').setAttribute('tabindex', -1);
 });
 
 function _registerServiceWorker(){
@@ -50,6 +50,7 @@ fillNeighborhoodsHTML = (neighborhoods = self.neighborhoods) => {
   const select = document.getElementById('neighborhoods-select');
   neighborhoods.forEach(neighborhood => {
     const option = document.createElement('option');
+    option.setAttribute('role', 'menuitem');
     option.innerHTML = neighborhood;
     option.value = neighborhood;
     select.append(option);
@@ -77,6 +78,7 @@ fillCuisinesHTML = (cuisines = self.cuisines) => {
   const select = document.getElementById('cuisines-select');
   cuisines.forEach(cuisine => {
     const option = document.createElement('option');
+    option.setAttribute('role', 'menuitem');
     option.innerHTML = cuisine;
     option.value = cuisine;
     select.append(option);
@@ -177,6 +179,8 @@ createRestaurantHTML = (restaurant) => {
 
   const image = document.createElement('img');
   image.className = 'restaurant-img';
+  let alt = 'Interior of ' + restaurant.name;
+  image.setAttribute('alt', alt);
   image.src = DBHelper.imageUrlForRestaurant(restaurant);
   li.append(image);
 
@@ -192,10 +196,14 @@ createRestaurantHTML = (restaurant) => {
   address.innerHTML = restaurant.address;
   li.append(address);
 
-  const more = document.createElement('a');
+  const more = document.createElement('button');
   const desc = 'View details about' + name.textContent;
   more.setAttribute('aria-label', desc);
   more.innerHTML = 'View Details';
+  more.classList.add('view-details');
+  more.addEventListener('click', function(){
+      window.location = DBHelper.urlForRestaurant(restaurant);
+  });
   more.href = DBHelper.urlForRestaurant(restaurant);
   li.append(more)
 

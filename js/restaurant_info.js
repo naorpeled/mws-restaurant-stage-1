@@ -6,6 +6,8 @@ var newMap;
  */
 document.addEventListener('DOMContentLoaded', (event) => {  
   initMap();
+  document.getElementById('restaurant-name').focus();
+  document.getElementById('map').setAttribute('tabindex', -1);
 });
 
 /**
@@ -90,6 +92,8 @@ fillRestaurantHTML = (restaurant = self.restaurant) => {
 
   const image = document.getElementById('restaurant-img');
   image.className = 'restaurant-img'
+  let desc = 'Interior of ' + restaurant.name; 
+  image.setAttribute('alt', desc);
   image.src = DBHelper.imageUrlForRestaurant(restaurant);
 
   const cuisine = document.getElementById('restaurant-cuisine');

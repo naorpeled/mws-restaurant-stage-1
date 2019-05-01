@@ -1,4 +1,4 @@
-let cacheVersion = 'nrestaurants-static-v4';
+let cacheVersion = 'nrestaurants-static-v5';
 
 // Save all the files into the cache on every Service Worker install
 self.addEventListener('install', function(event){
